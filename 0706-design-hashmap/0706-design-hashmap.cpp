@@ -1,36 +1,27 @@
 class MyHashMap {
 public:
-    vector<pair<int, int>> vec;
+    vector<int> values;
+    vector<bool> present;
     MyHashMap() {
+        values.resize(1000001, -1);
+        present.resize(1000001, false);
     }
     
     void put(int key, int value) {
-        for(int i=0; i<vec.size(); i++){
-            if(vec[i].first == key){
-                vec[i].second = value;
-                return;
-            }
-        }
-        vec.push_back({key, value});
+        values[key] = value;
+        present[key] = true;
+
     }
     
     int get(int key) {
-        for(int i=0; i<vec.size(); i++){
-            if(vec[i].first == key){
-                return vec[i].second;
-            }
+        if(present[key]){
+            return values[key];
         }
         return -1;
-        
     }
     
     void remove(int key) {
-        for(int i=0; i<vec.size(); i++){
-            if(vec[i].first == key){
-                vec.erase(vec.begin()+i);
-                break;
-            }
-        }
+        present[key] = false;
     }
 };
 
